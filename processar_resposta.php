@@ -11,8 +11,7 @@ var_dump($_POST);
 
  require_once("conexao.php");
  
- if($tip == 2){
- 
+
   if ($conexao == false) {
             echo("Erro de conexão com o banco de dados. Entre em contato com o administrador.");
             $erro = mysqli_connect_error($conexao);
@@ -24,11 +23,7 @@ var_dump($_POST);
                 $erro = mysqli_error($conexao);
                 echo($erro);
             }else{
-				//header("location:forum.php");
+				header("location:forum.php");
             }
         }
-        
-}else{
-	echo("error");
-}
 ?>

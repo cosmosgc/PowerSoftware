@@ -102,7 +102,7 @@
 					
 					</br>
 					<?php
-					$conexao = mysqli_connect("localhost", "root", "", "prfc");	
+					require_once("conexao.php");
 					
 					session_start();
 							

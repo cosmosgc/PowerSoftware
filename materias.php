@@ -155,8 +155,8 @@
 							}
 							
 					}
-					$offset = $page - 1;
-					$resultadoPost = mysqli_query($conexao, "SELECT * FROM post LIMIT 3 OFFSET $offset");
+					$offset = $pp *($page - 1);
+					$resultadoPost = mysqli_query($conexao, "SELECT * FROM post ORDER BY id_post DESC LIMIT 3 OFFSET $offset");
 					if (!$resultadoPost) {
 						$erro = mysqli_errno($conexao);
 						//header("location:erro.php?erro=$erro");

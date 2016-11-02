@@ -8,6 +8,8 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
     <link href="css/meucss.css" rel="stylesheet">
 
     <script src="js/jquery.min.js"></script>
@@ -80,7 +82,7 @@
 									if(isset($_SESSION['senha'])== TRUE){
 										
 										if($_SESSION['user_type']==1){
-											echo("<a href='tela_user_adm.php'>User</a>");
+											echo("<a href='tela_user_adm.php'>".$_SESSION['nome']."</a>");
 										
 										}else{
 										echo("<a href='tela_user.php'>User</a>");
@@ -142,26 +144,43 @@
 							$sqlUser = mysqli_query($conexao, 'SELECT * FROM user WHERE id_user = '.$row["id_user_fk"]);
 							while ($rowUser = mysqli_fetch_array($sqlUser, MYSQL_ASSOC))
 							{
-								echo("<div class='jumbotron'>");
-								echo ("<p>Pergunta de ".$rowUser["nome"]."</p> <br> <p>".$row['conteudo_pergunta']."</p>");
-								$sqlRespostas = mysqli_query($conexao, 'SELECT id_resposta, conteudo_resposta, id_user_fk, nome FROM resposta, user WHERE id_user_fk = id_user AND id_pergunta_fk = '.$row["id_pergunta"]);
+								echo("<div class='panel panel-primary'>");
+								$userType = "usuario";
+									if($rowUser['tipo_user_fk'] == 1)
+									{
+										$userType = "Admin";
+									}
+									else if($rowUser['tipo_user_fk'] == 2)
+									{
+										$userType = "usuario";
+									}
+								echo ("<div class='panel-heading'><p>Pergunta de ".$rowUser["nome"]." <span class='tag tag-info'>".$userType."</span></p><p>".$row['conteudo_pergunta']."</p></div>");
+								
+							}
+							$sqlRespostas = mysqli_query($conexao, 'SELECT id_resposta, conteudo_resposta, id_user_fk, tipo_user_fk, nome FROM resposta, user WHERE id_user_fk = id_user AND id_pergunta_fk = '.$row["id_pergunta"]);
 								while ($rowResposta = mysqli_fetch_array($sqlRespostas, MYSQL_ASSOC))
 								{
-									echo("<hr>");
-									echo("resposta de ".$rowResposta['nome']."<br>".$rowResposta['conteudo_resposta']);
-									echo("<hr>");
+									$userType = "usuario";
+									if($rowResposta['tipo_user_fk'] == 1)
+									{
+										$userType = "Admin";
+									}
+									else if($rowResposta['tipo_user_fk'] == 2)
+									{
+										$userType = "usuario";
+									}
+									echo("<div class='panel-body'>resposta de ".$rowResposta['nome']." <span class='tag tag-info'>".$userType."</span></div><div class='panel-footer'>".$rowResposta['conteudo_resposta']."</div>");
 								}
-								echo("<div class='fir'>
+								echo("<div class='alert alert-info'>
 								<form action='processar_resposta.php' id='enviarResposta' method='post'>
 								<h4 class='f'>Digite sua resposta abaixo para ser publicada:</h4></br>
 								<textarea name='res' rows='3' cols='40' form='enviarResposta'></textarea></br>
-								<input type='hidden' name='user_id' value='".$row["id_user_fk"]."'>
+								<input type='hidden' name='user_id' value='".$_SESSION['id']."'>
 								<input type='hidden' name='pergunta_id' value='".$row["id_pergunta"]."'>
 								<input type='submit' class='btn btn-default'/>
 								</form></br>
 								</div>");
 								echo("</div>");
-							}
 						}
 					}
 				?>
