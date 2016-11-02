@@ -8,8 +8,12 @@
                 $conexao = mysqli_connect("localhost", "root", "", "pfc");
                 if ($conexao == false)
                {
-                $erro = mysqli_connect_error();
-                echo("<h1>$erro</h1>");
+				   $conexao = mysqli_connect("mysql.hostinger.com.br", "u371996956_admin", "123456", "u371996956_power");
+                if ($conexao == false)
+				   {
+						$erro = mysqli_connect_error();
+						echo("<h1>$erro</h1>");
+				   }
                }
             ?>
         </body>

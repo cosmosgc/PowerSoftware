@@ -54,11 +54,22 @@
 								<li>
 							<?php
 							session_start();
-				if(isset($_SESSION['email'])){
-						echo("<p></p>");
-					}else{
-						echo("<a href='cadastro.php'>Cadastro</a>");
-						}
+							require_once("functions.php");
+							if(isset($_SESSION['email'])){
+									echo("<p></p>");
+								}else
+								{
+									echo("<a href='cadastro.php'>Cadastro</a>");
+								}
+							if(isset($_GET['page']))
+							{
+								$page = $_GET['page'];
+							}
+							else
+							{
+								$page = 1;
+							}
+						
 						?>
 								</li>
 							</ul>
@@ -128,27 +139,46 @@
 				<?php
 					require_once("conexao.php");
 					
-					$resultadoUsuarios = mysqli_query($conexao, "SELECT * FROM post");
-					if (!$resultadoUsuarios) {
+					$countPosts = mysqli_query($conexao, "SELECT COUNT(id_post) FROM post");
+					if(!$countPosts)
+					{
+						echo(mysqli_errno($conexao));
+					}
+					else
+					{
+						while ($rowCount = mysqli_fetch_array($countPosts, MYSQL_ASSOC))
+							{
+								$tot_rows = $rowCount["COUNT(id_post)"];
+								$pp = 3;
+								$curr_page = $page;
+								$paging_info = get_paging_info($tot_rows,$pp,$curr_page);								
+							}
+							
+					}
+					$offset = $page - 1;
+					$resultadoPost = mysqli_query($conexao, "SELECT * FROM post LIMIT 3 OFFSET $offset");
+					if (!$resultadoPost) {
 						$erro = mysqli_errno($conexao);
 						//header("location:erro.php?erro=$erro");
 						echo("FAIL");
 					}
 					else 
 					{   
-						if($_SESSION["user_type"] == 1)
+				
+				
+								echo("</div>");
+						if(isset($_SESSION["user_type"]) && $_SESSION["user_type"] == 1)
 							{
 								echo("<div class='jumbotron'>");
-								echo("</div>");
-							}
-							echo("<div class='fir'>
+							
+								echo("<div class='fir'>
 								<form action='processar_post.php' id='enviarPost' method='post'>
 								<h4 class='f'>Digite o post abaixo para ser publicada:</h4></br>
 								<input type='hidden' name='user_id' value='".$_SESSION['id']."'>
 								<input type='text' name='title' placeholder='titulo'>
 								");
-							//include("textToolbox\demo_small.html");
-							?>
+								//include("textToolbox\demo_small.html");
+								?>
 								<script language="Javascript" src="textToolbox\jquery-1.3.2.min.js" type="text/javascript"></script>
 								<script language="Javascript" src="textToolbox\htmlbox.colors.js" type="text/javascript"></script>
 								<script language="Javascript" src="textToolbox\htmlbox.styles.js" type="text/javascript"></script>
@@ -195,17 +225,24 @@ $("#ha").css("height","100%").css("width","100%").htmlbox({
 </form></br>
 								</div>
 							<?php
+							
 							echo("</div>");
-						while ($row = mysqli_fetch_array($resultadoUsuarios, MYSQL_ASSOC)){
+							}
+						while ($row = mysqli_fetch_array($resultadoPost, MYSQL_ASSOC)){
 							$sqlUser = mysqli_query($conexao, 'SELECT * FROM user WHERE id_user = '.$row["id_user_fk"]);
 							while ($rowUser = mysqli_fetch_array($sqlUser, MYSQL_ASSOC))
 							{
-								echo("<div class='jumbotron'>");
-								echo ("<h2>".$row['nome_post']." <sub>Por ".$rowUser['nome']."</sub> <p><hr>".$row['conteudo_post']."</p><br>");
+								echo("<div class='panel panel-primary'>");
+								echo ("<div class='panel-heading'>".$row['nome_post']." <sub>Por ".$rowUser['nome']."</sub></div> <div class='panel-body'>".$row['conteudo_post']."</div><br>");
 								echo("</div>");
 							}
 						}
 						
+						?>
+						<div id='rodape'>
+						<p><a href="materias.php?page=<?php echo($page - 1) ?>">Anterior!</a> <a href="materias.php?page=<?php echo($page + 1) ?>">Proximo!</a></p>
+						</div>
+						<?php
 					}
 						
 						
@@ -229,6 +266,7 @@ $("#ha").css("height","100%").css("width","100%").htmlbox({
 		</div>
 		
 		</div>
+		
 	</div>
 </div>
 

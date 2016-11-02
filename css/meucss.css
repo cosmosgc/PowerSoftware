@@ -33,6 +33,8 @@ body{
     color: white;
     font-family: "Urban Elegance Bold";
     padding: 0px !important;
+	width: auto;
+    height: auto;
 }
 
 .content{
@@ -81,12 +83,11 @@ body{
     text-align:center;
     height:80px;
     //margin:-60px;
-    position:relative;
 }
 .jumbotron > h2 > .title{
     margin-top:23px;
     //background:black; //testando posição
-    width:100%;
+    width:auto;
 }
 
 .title{
