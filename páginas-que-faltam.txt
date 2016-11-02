@@ -1,0 +1,14 @@
+Todo a parte de fórum, na página de usuário comum falta ele poder ver quais são as perguntas que ele fez no fórum para assim
+poder ir ver as respostas.
+Na parte do fórum precisa também nos comentários de cada pergunta que ficaram as respostas um identificação(ao lado do nome do
+usuário, mostrar se ele é adm ou usuário comum).
+A página de materias precisa ser arrumada, para mostrar apenas 4 ou 5 matérias de cada vez, quando a barra de pesuisa ela
+pode ser feita para funcionar somente com as máterias.
+A parte dos downlads precisa ser feita, o adm faz up dos arquivos pela página de perfil dele ou na própria página de download
+(o que for mais fácil de fazer).
+E na parte do adm precisa ser feito o controle dos usuário, a parte que desativa ele se necessário e também poder tornar um
+usuário comum em adm, outra coisa é que um botão de denuncia tem que ser feito nas perguntas do fórum, para que assim o adm saiba de algo que não deva estar ali.
+Na página inicial tem três partes, a caixa das matérias que deve mostrar o título das 4 matérias mais rescentes, só o nome msm,
+e a caixa de fórum deve conter as 4 perguntas mais recentes ou com mais envolvimento(o que for melhor de fazer), a parte
+da propaganda pode diminuir a caixa e deixar do jeito que está no momento, quanto ao rodapé pode deixar tbm.
+Obs: somente usuários cadastrados podem utilizar as funcionalidades do site, caso contrário só pode visualizar o site.

@@ -1,0 +1,117 @@
+@font-face {
+  font-family: "Urban Elegance Bold";
+  src: url("../fonts/Urban Elegance Bold.ttf");
+}
+
+.f{
+    color:#FFFFFF
+}
+.fir{
+    color:#000000;
+}
+.h{
+    color: #F3A408;
+}
+#titulo{
+    font-family: Arial;
+    background-color:#1D2483;
+    color:white;
+}
+
+#texto{
+    text-align: center;
+}
+body{
+    background-color:#1446B0;
+}
+.row{
+    background-color:#002147;
+}
+
+.jumbotron{
+    background-color:#334AB0;
+    color: white;
+    font-family: "Urban Elegance Bold";
+    padding: 0px !important;
+}
+
+.content{
+    padding:0px 60px 60px 60px;
+}
+.content2{
+    padding:60px 60px 60px 60px;
+}
+
+.post-content{
+    max-width:90%;
+}
+.post-content img{
+    max-width:100% ;
+}
+
+#espaco{
+    padding:50px;
+    padding: 13%;
+}
+
+#espaco1{
+    padding: 16%;
+}
+
+#imagem{
+    padding: 2%;
+    background-color:#0012A6;
+}
+
+#post-content{
+    max-width:40%;
+}
+#post-content img{
+    max-width:40% ;
+}
+#rodape{
+    text-align: center;
+}
+
+.jumbotron a{
+    color:#cecece;
+}
+.jumbotron > h2 {
+    background-color:#26398e;
+    text-align:center;
+    height:80px;
+    //margin:-60px;
+    position:relative;
+}
+.jumbotron > h2 > .title{
+    margin-top:23px;
+    //background:black; //testando posição
+    width:100%;
+}
+
+.title{
+    position: absolute;
+    text-align:center;
+}
+
+.navbar-default {
+    background-color: #18395F;
+    border-color: #092A50;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: black;
+    background-color: #86A7CD;
+    font-weight:bold;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: white;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a {
+    color: #E0E0E0;
+    background-color: transparent;
+    font-weight:bold;
+}
