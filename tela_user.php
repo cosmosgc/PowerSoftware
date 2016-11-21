@@ -8,8 +8,9 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
     <link href="css/meucss.css" rel="stylesheet">
-
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -97,9 +98,9 @@
 					
 					</br>
 					<?php
-					require_once("conexao.php");
-					
 					session_start();
+					
+					require_once("conexao.php");
 				if(!isset($_SESSION['email'])){
 					echo("<p>Erro ao reconhecer o email.</p>");
 				}
@@ -126,7 +127,42 @@
 					<input type='submit' class='btn btn-default'/>
             </form></br>
             </div>");
-					echo ("<a href='conf.php'>Para alterar suas informações clique aqui</a>");
+			
+			echo("<hr>");
+					require_once("conexao.php");
+					$consultaPergunta = mysqli_query($conexao, "SELECT * FROM pergunta where id_user_fk = ".$_SESSION['id']);
+					if (!$consultaPergunta) {
+						$erro = mysqli_error($conexao);
+						//header("location:erro.php?erro=$erro");
+						echo("$erro");
+					}
+					else 
+					{   
+						echo("<div class='panel panel-primary'><h3 style='color:blue;'>Suas Perguntas</h3>");
+						while ($row = mysqli_fetch_array($consultaPergunta, MYSQL_ASSOC)){
+							$sqlUser = mysqli_query($conexao, 'SELECT * FROM user WHERE id_user = '.$_SESSION["id"]);
+							while ($rowUser = mysqli_fetch_array($sqlUser, MYSQL_ASSOC))
+							{
+								$userType = "usuario";
+									if($rowUser['tipo_user_fk'] == 1)
+									{
+										$userType = "Admin";
+									}
+									else if($rowUser['tipo_user_fk'] == 2)
+									{
+										$userType = "usuario";
+									}
+								echo ("<div class='panel-heading'><p>Pergunta de ".$rowUser["nome"]." <span class='tag tag-info'>".$userType."</span></p><p>".$row['conteudo_pergunta']."</p></div>");
+								$sqlRespostas = mysqli_query($conexao, 'SELECT count(distinct(id_resposta)), id_pergunta  FROM resposta, pergunta WHERE id_pergunta = id_pergunta_fk AND id_pergunta_fk = '.$row["id_pergunta"]);
+								while ($rowResposta = mysqli_fetch_array($sqlRespostas, MYSQL_ASSOC))
+								{
+									echo("<div  class='panel-footer'><a href='respostas.php?id_pergunta=".$rowResposta['id_pergunta']."'>Veja as ".$rowResposta['count(distinct(id_resposta))']." respostas</a></div>");
+								}
+							}
+						}
+					}
+					echo ("</div><a href='conf.php'>Para alterar suas informações clique aqui</a>");
+					
 					$_SESSION['conf_email'] = $_SESSION['email'];
 
                 }

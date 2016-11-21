@@ -27,7 +27,7 @@
 				$_SESSION["user_type"] = $row['tipo_user_fk'];
 				$_SESSION['nome'] = $row['nome'];
 				$consu = $conexao -> query("select * from user where email= '$email'");
-	if ($consu == false) {
+				if ($consu == false) {
                 echo ("erro ao enviar comando para o banco de dados.");
                 $erro = mysqli_error($conexao);
                 echo($erro);

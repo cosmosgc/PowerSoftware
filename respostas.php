@@ -46,11 +46,11 @@
 									<a href="download.php">Download</a>
 								</li>
 								<li>
-									<a href="materias.php">Matérias</a>
+									<a href="materias.php">MatÃ©rias</a>
 								</li>
 								
 								<li>
-									<a href="forum.php">Fórum</a>
+									<a href="forum.php">FÃ³rum</a>
 								</li>
 								
 								<li class="divider">
@@ -169,7 +169,7 @@
 									{
 										$userType = "usuario";
 									}
-									echo("<div class='panel-body'>resposta de ".$rowResposta['nome']." <span class='tag tag-info'>".$userType."</span></div><div class='panel-footer'>".$rowResposta['conteudo_resposta']."</div>");
+									echo("<div class='panel-body'>resposta de ".$rowResposta['nome']." <span class='tag tag-info'>".$userType."</span></div><div class='panel-footer'>".$rowResposta['conteudo_resposta']." <span class='tag tag-warning'><a href='reportarResposta.php?id_resposta=".$rowResposta['id_resposta']."'>Reportar</a></span></div>");
 								}
 								echo("<div class='alert alert-info'>
 								<form action='processar_resposta.php' id='enviarResposta' method='post'>

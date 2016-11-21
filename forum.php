@@ -129,7 +129,6 @@
 			
 				<?php
 				require_once("conexao.php");
-					
 					$consultaPergunta = mysqli_query($conexao, "SELECT * FROM pergunta");
 					if (!$consultaPergunta) {
 						$erro = mysqli_error($conexao);
